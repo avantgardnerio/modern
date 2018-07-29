@@ -9,6 +9,9 @@ pipeline {
                 sh "env"
                 sh "pwd"
                 sh "ls -la"
+                sh "whoami"
+                sh "ls -la ~"
+                sh "export HOME=/var/lib/jenkins"
                 sh "npm install"
             }
         }
