@@ -7,6 +7,8 @@ pipeline {
         stage('setup') {
             steps {
                 sh "env"
+                sh "pwd"
+                sh "ls -la"
                 sh "npm install"
             }
         }
