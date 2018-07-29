@@ -7,11 +7,12 @@ pipeline {
         stage('setup') {
             steps {
                 sh "env"
+                sh "npm install"
             }
         }
         stage('Test') {
             steps {
-                sh 'yarn test'
+                sh 'npm test'
             }
         }
     }
