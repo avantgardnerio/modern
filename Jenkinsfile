@@ -2,7 +2,8 @@ pipeline {
     agent { dockerfile true }
     environment {
         PATH = "/usr/local/bin:$PATH"
-        HOME = "/var/lib/jenkins"
+        HOME = "."
+        CI = "true"
     }
     stages {
         stage('setup') {
