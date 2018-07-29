@@ -10,7 +10,7 @@ pipeline {
                 sh "env"
                 sh "pwd"
                 sh "ls -la"
-                sh "HOME=/var/lib/jenkins npm install"
+                sh "HOME=/var/lib/jenkins/workspace npm install"
             }
         }
         stage('Test') {
