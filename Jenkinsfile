@@ -12,6 +12,7 @@ pipeline {
                 sh "pwd"
                 sh "ls -la"
                 sh "HOME=. npm install"
+                sh "chown -R mysql:mysql /var/lib/mysql && mysqld_safe &"
             }
         }
         stage('Test') {
