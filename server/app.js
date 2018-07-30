@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var mysql = require('promise-mysql');
 
 var app = express();
 
@@ -21,6 +22,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+app.get('/api/data', async (req, res) => {
+  const con = await mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: 'password',
+      database: 'modern'
+  });
+  console.log('------ connected --------');
+  con.end();
+  res.send('connected!');
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
