@@ -9,5 +9,6 @@ const config = {
         database: vcap ? vcap.mysql.credentials.name : 'modern'
     }
 };
+console.log(`connecting to ${config.connection.database}...`);
 const pool = connect(config);
 module.exports = pool;
