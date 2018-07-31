@@ -11,8 +11,8 @@ pipeline {
                 sh "env"
                 sh "pwd"
                 sh "ls -la"
-                sh "HOME=. npm install"
-                sh "chown -R mysql:mysql /var/lib/mysql && mysqld_safe &"
+                sh "HOME=. yarn install"
+                sh "service mysql start"
             }
         }
         stage('Test') {
