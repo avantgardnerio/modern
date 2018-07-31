@@ -13,3 +13,5 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y mariadb-server && \
     mysql -u root -e "create database modern;" && \
     mysql -u root -e "create database modern_test;" && \
     mysql -u root -e "GRANT ALL PRIVILEGES on *.* to 'root'@'localhost' IDENTIFIED BY 'password'; FLUSH PRIVILEGES;"
+
+RUN apt-get install -y sudo
