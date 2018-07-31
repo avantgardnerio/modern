@@ -12,7 +12,7 @@ pipeline {
                 sh "pwd"
                 sh "ls -la"
                 sh "HOME=. yarn install"
-                sh "service mysql start"
+                sh "sudo service mysql start"
             }
         }
         stage('Test') {
