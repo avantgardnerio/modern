@@ -3,12 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "chai": "^4.1.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
     "jade": "~1.11.0",
     "knex": "^0.15.2",
+    "mocha": "^5.2.0",
     "morgan": "~1.9.0",
     "mysql": "^2.16.0",
     "promise-mysql": "^3.3.1",
@@ -18,9 +20,11 @@
   },
   "scripts": {
     "server": "node ./server/bin/www",
+    "server-test": "mocha server/test",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "client-test": "react-scripts test --env=jsdom",
+    "test": "mocha server/test && CI=true react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
 }
