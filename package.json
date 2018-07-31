@@ -24,7 +24,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "client-test": "react-scripts test --env=jsdom",
-    "test": "mocha server/test ---file server/test/setup.js && CI=true react-scripts test --env=jsdom",
+    "test": "mocha --file server/test/setup.js server/test && CI=true react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
 }
