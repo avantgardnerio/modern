@@ -20,11 +20,11 @@
   },
   "scripts": {
     "server": "node ./server/bin/www",
-    "server-test": "mocha -r server/test/setup.js server/test",
+    "server-test": "mocha --file server/test/setup.js server/test",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "client-test": "react-scripts test --env=jsdom",
-    "test": "mocha server/test -r server/test/setup.js && CI=true react-scripts test --env=jsdom",
+    "test": "mocha server/test ---file server/test/setup.js && CI=true react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
 }
