@@ -14,11 +14,17 @@ before(async () => {
         console.log('------ setting up tests ---------');
         const knex = require('../db');
         await knex.migrate.latest();
-        await knex.destroy();
         console.log('------ running tests ---------');
     } catch(ex) {
         console.error(ex);
         process.exit(-1);
     }
 });
+
+after(async () => {
+    console.log('------ cleaning up ---------');
+    const knex = require('../db');
+    await knex.destroy();
+    console.log('-------- done ---------');
+})
 

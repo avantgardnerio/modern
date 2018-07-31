@@ -26,5 +26,8 @@
     "client-test": "react-scripts test --env=jsdom",
     "test": "mocha --file server/test/setup.js server/test && CI=true react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "supertest": "^3.1.0"
   }
 }
