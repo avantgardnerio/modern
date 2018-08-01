@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+
+const {app, start} = require('../app');
+
+const port = parseInt(process.env.PORT || '3000', 10);
+
+app.set('port', port);
+start();

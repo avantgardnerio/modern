@@ -11,7 +11,8 @@ pipeline {
                 sh "env"
                 sh "pwd"
                 sh "ls -la"
-                sh "HOME=. npm install"
+                sh "HOME=. yarn install && yarn build"
+                sh "sudo service mysql start && chromedriver --verbose --disable-ipv6 &"
             }
         }
         stage('Test') {
