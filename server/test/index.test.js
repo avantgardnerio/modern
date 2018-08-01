@@ -33,13 +33,13 @@ describe('the server', () => {
                     }
                 }
             });
-            await session.go('http://motherfuckingwebsite.com/');
+            await session.go('http://localhost:3000/');
             console.log('gone')
             const header = await session.findElement('css selector', 'h1');
             console.log('found')
             const text = await header.getText();
             console.log(`---${text}---`)
-            expect(text).to.equal('This is a motherfucking website.');
+            expect(text).to.equal('Users');
         } catch (err) {
             console.log(err.stack);
         } finally {

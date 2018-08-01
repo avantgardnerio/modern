@@ -1,18 +1,29 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+    super.setState({
+      users: []
+    })
+  }
+
+  componentDidMount = async() => {
+    const req = await fetch('/users');
+    const users = await req.json();
+    super.setState({users});
+  }
+
+  get users() {
+    return this.state.users.map(user => (<li>{user.givenName} {user.familyName}</li>));
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div>
+        <h1>Users</h1>
+        <ul>{this.users}</ul>
       </div>
     );
   }
