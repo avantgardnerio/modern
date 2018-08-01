@@ -45,9 +45,6 @@ describe('the server', () => {
             const text = await header.getText();
             console.log(`---${text}---`)
             expect(text).to.equal('Users');
-        } catch (err) {
-            console.error(err);
-            fail();
         } finally {
             session.delete();
         }
