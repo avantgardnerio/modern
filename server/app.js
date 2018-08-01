@@ -53,10 +53,11 @@ app.use((err, req, res, next) => {
   res.render('error');
 });
 
+const server = http.createServer(app);
+
 const start = () => {
   return knex.migrate.latest().then(() => {
     return new Promise((resolve, reject) => {
-      const server = http.createServer(app);
       server.on('error', err => reject(err));
       server.on('listening', () => {
         console.log(`Listening on ${server.address()}`);
@@ -67,7 +68,14 @@ const start = () => {
   })
 }
 
+const stop = () => {
+  return new Promise((resolve, reject) => {
+    server.close(() => resolve());
+  })
+};
+
 module.exports = {
   app,
-  start
+  start,
+  stop
 };

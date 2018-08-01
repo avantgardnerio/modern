@@ -1,13 +1,17 @@
 const {expect, fail} = require('chai');
 const knex = require('../db');
 const request = require('supertest');
-const {app, start} = require('../app');
+const {app, start, stop} = require('../app');
 const webdriver = require('w3c-webdriver');
 
 describe('the server', () => {
 
     before(async () => {
         await start();
+    })
+
+    after(async () => {
+        await stop();
     })
 
     it('should serve users', async () => {
