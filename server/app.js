@@ -1,14 +1,16 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var mysql = require('promise-mysql');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const mysql = require('promise-mysql');
+const http = require('http');
+const knex = require('./db');
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,10 +27,10 @@ app.use('/users', usersRouter);
 
 app.get('/api/data', async (req, res) => {
   const con = await mysql.createConnection({
-      host: 'localhost',
-      user: 'root',
-      password: 'password',
-      database: 'modern'
+    host: 'localhost',
+    user: 'root',
+    password: 'password',
+    database: 'modern'
   });
   console.log('------ connected --------');
   con.end();
@@ -36,12 +38,12 @@ app.get('/api/data', async (req, res) => {
 })
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -51,4 +53,21 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+const start = () => {
+  return knex.migrate.latest().then(() => {
+    return new Promise((resolve, reject) => {
+      const server = http.createServer(app);
+      server.on('error', err => reject(err));
+      server.on('listening', () => {
+        console.log(`Listening on ${server.address()}`);
+        resolve(server);
+      });
+      server.listen(app.get('port'));
+    })
+  })
+}
+
+module.exports = {
+  app,
+  start
+};
