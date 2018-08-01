@@ -1,4 +1,4 @@
-const {expect} = require('chai');
+const {expect, fail} = require('chai');
 const knex = require('../db');
 const request = require('supertest');
 const {app, start} = require('../app');
@@ -46,7 +46,8 @@ describe('the server', () => {
             console.log(`---${text}---`)
             expect(text).to.equal('Users');
         } catch (err) {
-            console.log(err.stack);
+            console.error(err);
+            fail();
         } finally {
             session.delete();
         }
