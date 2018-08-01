@@ -1,10 +1,15 @@
 const {expect} = require('chai');
 const knex = require('../db');
 const request = require('supertest');
-const {app} = require('../app');
+const {app, start} = require('../app');
 const webdriver = require('w3c-webdriver');
 
 describe('the server', () => {
+
+    before(async () => {
+        await start();
+    })
+
     it('should serve users', async () => {
         // setup
         await knex('person').delete();
