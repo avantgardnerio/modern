@@ -5,12 +5,23 @@ const {app, start, stop} = require('../app');
 const webdriver = require('w3c-webdriver');
 
 describe('the server', () => {
+    let session;
 
     before(async () => {
+        app.set('port', 3000);
         await start();
+        session = await webdriver.newSession('http://localhost:9515', {
+            desiredCapabilities: {
+                "browserName": "chrome",
+                "chromeOptions": {
+                    "args": ["--headless", "--disable-gpu", "--no-sandbox"]
+                }
+            }
+        });
     })
 
     after(async () => {
+        await session.delete();
         await stop();
     })
 
@@ -32,25 +43,41 @@ describe('the server', () => {
     })
 
     it('should render page', async () => {
-        let session;
+        await knex('person').delete();
+        const expected = {id: 1, givenName: 'Alan', familyName: 'Turing'};
+        await knex('person').insert(expected);
+
         try {
-            session = await webdriver.newSession('http://localhost:9515', {
-                desiredCapabilities: {
-                    "browserName": "chrome",
-                    "chromeOptions": {
-                        "args": ["--headless", "--disable-gpu", "--no-sandbox"]
-                    }
-                }
-            });
             await session.go('http://localhost:3000/');
-            console.log('gone')
-            const header = await session.findElement('css selector', 'h1');
-            console.log('found')
-            const text = await header.getText();
-            console.log(`---${text}---`)
-            expect(text).to.equal('Users');
-        } finally {
-            session.delete();
+            await waitForElements(session, 'h1');
+            const lis = await waitForElements(session, 'li');
+
+            // Assert
+            expect(lis.length).to.equal(1);
+            expect(await lis[0].getText()).to.equal('Alan Turing');
+        } catch(ex) {
+            console.error(ex);
+            throw ex;
         }
     })
+
+    const waitForElements = (session, qs, timeout = 5000) =>{
+        return new Promise((resolve, reject) => {
+            const start = new Date().getTime();
+            const id = setInterval(() => {
+                if (new Date().getTime() - start >= 5000) {
+                    clearInterval(id);
+                    reject(new Error(`Timeout waiting for elements: ${qs}`));
+                }
+                session.findElements('css selector', qs).then((elements) => {
+                    // console.log('-------------', elements)
+                    if (elements.length > 0) {
+                        clearInterval(id);
+                        resolve(elements);
+                    }
+                });
+            }, 100);
+        })
+    }
+
 })

@@ -4,9 +4,9 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    super.setState({
+    this.state = {
       users: []
-    })
+    };
   }
 
   componentDidMount = async() => {
@@ -16,13 +16,13 @@ class App extends Component {
   }
 
   get users() {
-    return this.state.users.map(user => (<li>{user.givenName} {user.familyName}</li>));
+    return this.state.users.map(user => (<li key={user.id}>{user.givenName} {user.familyName}</li>));
   }
 
   render() {
     return (
       <div>
-        <h1>Users</h1>
+        <h1 id="myDiv">Users</h1>
         <ul>{this.users}</ul>
       </div>
     );
