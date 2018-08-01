@@ -24,10 +24,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "client-test": "react-scripts test --env=jsdom",
-    "test": "mocha --file server/test/setup.js server/test && CI=true react-scripts test --env=jsdom",
+    "test": "mocha -t 10000 --file server/test/setup.js server/test && CI=true react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "supertest": "^3.1.0"
+    "supertest": "^3.1.0",
+    "w3c-webdriver": "^0.14.0"
   }
 }
