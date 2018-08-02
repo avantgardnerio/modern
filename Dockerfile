@@ -29,4 +29,10 @@ RUN wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.z
 
 # oracle
 USER oracle
-RUN sed -i s/wait/echo/g /home/oracle/setup/dockerInit.sh
+RUN cd ~ && \
+    echo 'alter session set "_ORACLE_SCRIPT"=true;' >> init.sql && \
+    echo 'CREATE USER modern_test IDENTIFIED BY "password";' >> init.sql && \
+    echo 'GRANT CONNECT TO modern_test;' >> init.sql && \
+    echo 'GRANT CONNECT, RESOURCE, DBA TO modern_test;' >> init.sql && \
+    echo 'quit' >> init.sql && \
+    sed -i s/wait/echo/g /home/oracle/setup/dockerInit.sh
