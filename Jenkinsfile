@@ -12,8 +12,8 @@ pipeline {
                 sh "pwd"
                 sh "ls -la"
                 sh "HOME=. yarn install && yarn build"                
-                sh "/home/oracle/setup/dockerInit.sh"
-                sh "sqlplus sys/Oradoc_db1 as SYSDBA @$HOME/init.sql"
+                sh "sudo -u oracle /home/oracle/setup/dockerInit.sh"
+                sh "sudo -u oracle sqlplus sys/Oradoc_db1 as SYSDBA @$HOME/init.sql"
                 sh "chromedriver --verbose --disable-ipv6 &"
             }
         }

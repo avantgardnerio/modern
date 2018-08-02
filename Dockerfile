@@ -38,6 +38,4 @@ RUN cd ~ && \
     echo 'GRANT CONNECT TO modern_test;' >> init.sql && \
     echo 'GRANT CONNECT, RESOURCE, DBA TO modern_test;' >> init.sql && \
     echo 'quit' >> init.sql && \
-    sed -i s/wait/echo/g /home/oracle/setup/dockerInit.sh && \
-    chmod ugo+x /home/oracle/setup/dockerInit.sh
-
+    sed -i s/wait/echo/g /home/oracle/setup/dockerInit.sh
