@@ -12,7 +12,7 @@ pipeline {
                 sh "pwd"
                 sh "ls -la"
                 sh "HOME=. yarn install && yarn build"
-                sh "/home/oracle/setup/dockerInit.sh & chromedriver --verbose --disable-ipv6 &"
+                sh "/home/oracle/setup/dockerInit.sh && chromedriver --verbose --disable-ipv6 &"
             }
         }
         stage('Test') {

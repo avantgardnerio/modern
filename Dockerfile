@@ -27,4 +27,6 @@ RUN wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.z
     mv chromedriver /usr/bin && \
     chromedriver --version
 
+# oracle
 USER oracle
+RUN sed -i s/wait/echo/g /home/oracle/setup/dockerInit.sh
