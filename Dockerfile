@@ -28,6 +28,9 @@ RUN wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.z
     chromedriver --version
 
 # oracle
+RUN usermod -aG wheel oracle && \
+    echo "oracle ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/oracle
+ENV LD_LIBRARY_PATH=/u01/app/oracle/product/12.2.0/dbhome_1/lib/
 USER oracle
 RUN cd ~ && \
     echo 'alter session set "_ORACLE_SCRIPT"=true;' >> init.sql && \
@@ -36,3 +39,4 @@ RUN cd ~ && \
     echo 'GRANT CONNECT, RESOURCE, DBA TO modern_test;' >> init.sql && \
     echo 'quit' >> init.sql && \
     sed -i s/wait/echo/g /home/oracle/setup/dockerInit.sh
+

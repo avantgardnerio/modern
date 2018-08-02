@@ -2,8 +2,8 @@ process.env.VCAP_SERVICES = JSON.stringify({
     mysql: {
         credentials: {
             host: '127.0.0.1',
-            user: 'root',
-            password: 'password',
+            user: 'sys as SYSDBA',
+            password: 'Oradoc_db1',
             name: 'modern_test'
         }
     }
@@ -12,8 +12,8 @@ process.env.VCAP_SERVICES = JSON.stringify({
 before(async () => {
     try {
         console.log('------ setting up tests ---------');
-        const knex = require('../db');
-        await knex.migrate.latest();
+        // const knex = require('../db');
+        // await knex.migrate.latest();
         console.log('------ running tests ---------');
     } catch(ex) {
         console.error(ex);
