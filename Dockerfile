@@ -4,7 +4,7 @@ FROM container-registry.oracle.com/database/enterprise:12.2.0.1
 
 USER root
 
-RUN yum install -y curl sudo gcc-c++ make
+RUN yum install -y curl sudo gcc-c++ make wget
 
 # node
 RUN curl --silent --location https://rpm.nodesource.com/setup_10.x | bash - && \
@@ -16,18 +16,15 @@ RUN curl --silent --location https://rpm.nodesource.com/setup_10.x | bash - && \
 RUN useradd -u 124 jenkins && \
     usermod -aG wheel jenkins && \
     echo "jenkins ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/jenkins
+  
+# chrome
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm && \
+    yum install -y ./google-chrome-stable_current_*.rpm
 
 # chromedriver
-# RUN apt-get install -y wget unzip libglib2.0-0 libx11-6 libnss3 && \
-#     wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip && \
-#     unzip chromedriver_linux64.zip && \
-#     mv chromedriver /usr/bin && \
-#     chromedriver --version
-    
-# chrome
-# RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
-#     echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | tee /etc/apt/sources.list.d/google-chrome.list && \
-#     apt-get update && \
-#     apt-get install -y google-chrome-stable
+RUN wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip && \
+    unzip chromedriver_linux64.zip && \
+    mv chromedriver /usr/bin && \
+    chromedriver --version
 
 USER oracle
