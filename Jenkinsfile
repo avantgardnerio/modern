@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'yarn test'
+                sh 'sleep 5 && yarn test'
             }
         }
     }
