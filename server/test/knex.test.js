@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const knex = require('knex');
 
-describe('knex', () => {
+xdescribe('knex', () => {
     it('should return results', async () => {
         const con = knex({
             client: 'oracledb',

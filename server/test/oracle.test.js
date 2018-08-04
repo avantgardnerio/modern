@@ -1,7 +1,7 @@
 const { expect, fail } = require('chai');
 const oracledb = require('oracledb');
 
-describe('the oracle driver', () => {
+xdescribe('the oracle driver', () => {
   it('should return results', async () => {
     // setup
     const expected = [[42]];
