@@ -6,14 +6,21 @@ process.env.VCAP_SERVICES = JSON.stringify({
             password: 'Oradoc_db1',
             name: 'modern_test'
         }
+    },
+    oracle: {
+        credentials: {
+            user: "modern_test",
+            password: "password",
+            name : "localhost:1521/ORCLCDB.localdomain"
+        }
     }
 });
 
 before(async () => {
     try {
         console.log('------ setting up tests ---------');
-        // const knex = require('../db');
-        // await knex.migrate.latest();
+        const knex = require('../db');
+        await knex.migrate.latest();
         console.log('------ running tests ---------');
     } catch(ex) {
         console.error(ex);
