@@ -8,6 +8,6 @@ const config = {
         connectString : vcap ? vcap.oracle.credentials.name : "localhost:1521/ORCLCDB.localdomain"
     }
 };
-console.log(`connecting to ${config.connection.database}...`);
+console.log(`connecting to`, config);
 const pool = connect(config);
 module.exports = pool;
