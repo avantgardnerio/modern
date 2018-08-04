@@ -1,7 +1,7 @@
 pipeline {
     agent { dockerfile true }
     environment {
-        PATH = "/usr/local/bin:/u01/app/oracle/product/12.2.0/dbhome_1/bin:$PATH"
+        PATH = "/usr/local/bin:/u01/app/oracle/product/12.2.0/dbhome_1/bin:/usr/local/bin:/usr/bin:/bin:/snap/bin"
         HOME = "."
         CI = "true"
     }
@@ -11,11 +11,9 @@ pipeline {
                 sh "env"
                 sh "pwd"
                 sh "ls -la"
-                sh "export PATH=$PATH:/u01/app/oracle/product/12.2.0/dbhome_1/bin"
-                sh "env"
                 sh "HOME=. yarn install && yarn build"
                 sh "sudo -u oracle /home/oracle/setup/dockerInit.sh"
-                sh "export PATH=$PATH:/u01/app/oracle/product/12.2.0/dbhome_1/bin/sqlplus sys/Oradoc_db1 as SYSDBA /home/oracle/init.sql"
+                sh "cd /home/oracle/ && sqlplus sys/Oradoc_db1 as SYSDBA init.sql"
                 sh "chromedriver --verbose --disable-ipv6 &"
             }
         }
