@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'sudo -u oracle yarn test'
+                sh 'yarn test'
             }
         }
     }

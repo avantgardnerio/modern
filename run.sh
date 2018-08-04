@@ -5,4 +5,5 @@ docker run \
     -v `pwd`/data:/ORCL \
     -p 3000:3000 \
     -p 1521:1521 \
-    -it modern /bin/bash -c "/home/oracle/setup/dockerInit.sh && bash"
+    -u 124:132 \
+    -it modern /bin/bash -c "bash"
