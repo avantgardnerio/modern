@@ -1,10 +1,8 @@
-const { expect, fail } = require('chai');
-const oracledb = require('oracledb');
+const { expect } = require('chai');
 const knex = require('knex');
 
 describe('knex', () => {
-    it('should return results', (done) => {
-        console.log('connecting...')
+    it('should return results', async () => {
         const con = knex({
             client: 'oracledb',
             connection: {
@@ -13,17 +11,7 @@ describe('knex', () => {
                 connectString : "localhost:1521/ORCLCDB.localdomain"
             }
         });
-        console.log('querying...', con.raw)
-        const promise = con.raw('select 42 as test from dual');
-        console.log('promise...', promise)
-        promise.then((result, err) => {
-            expect(result).to.deep.equal([{TEST: 42}]);
-            done();
-        })
-        promise.catch(err => {
-            console.error(err);
-            done(err);
-        })
-        console.log('waiting...')
+        const result = await con.raw('select 42 as test from dual');
+        expect(result).to.deep.equal([{TEST: 42}]);
     })
-})
+});

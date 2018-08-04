@@ -3,10 +3,9 @@ const vcap = process.env.VCAP_SERVICES ? JSON.parse(process.env.VCAP_SERVICES) :
 const config = {
     client: 'oracledb',
     connection: {
-        host: vcap ? vcap.mysql.credentials.host : '127.0.0.1',
-        user: vcap ? vcap.mysql.credentials.user : 'root',
-        password: vcap ? vcap.mysql.credentials.password : 'password',
-        database: vcap ? vcap.mysql.credentials.name : 'modern'
+        user: vcap ? vcap.oracle.credentials.user : "modern_test",
+        password: vcap ? vcap.oracle.credentials.password : "password",
+        connectString : vcap ? vcap.oracle.credentials.name : "localhost:1521/ORCLCDB.localdomain"
     }
 };
 console.log(`connecting to ${config.connection.database}...`);

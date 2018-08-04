@@ -1,4 +1,4 @@
-const {expect, fail} = require('chai');
+const {expect} = require('chai');
 const knex = require('../db');
 const request = require('supertest');
 const {app, start, stop} = require('../app');
@@ -18,12 +18,12 @@ xdescribe('the server', () => {
                 }
             }
         });
-    })
+    });
 
     after(async () => {
         await session.delete();
         await stop();
-    })
+    });
 
     it('should serve users', async () => {
         // setup
@@ -40,7 +40,7 @@ xdescribe('the server', () => {
 
         // assert
         expect(response.body).to.deep.equal([expected]);
-    })
+    });
 
     it('should render page', async () => {
         await knex('person').delete();
@@ -59,7 +59,7 @@ xdescribe('the server', () => {
             console.error(ex);
             throw ex;
         }
-    })
+    });
 
     const waitForElements = (session, qs, timeout = 5000) =>{
         return new Promise((resolve, reject) => {
@@ -80,4 +80,4 @@ xdescribe('the server', () => {
         })
     }
 
-})
+});
