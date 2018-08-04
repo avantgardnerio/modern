@@ -38,6 +38,7 @@ RUN cd ~ && \
     echo 'CREATE USER modern_test IDENTIFIED BY "password";' >> init.sql && \
     echo 'GRANT CONNECT TO modern_test;' >> init.sql && \
     echo 'GRANT CONNECT, RESOURCE, DBA TO modern_test;' >> init.sql && \
+    echo "select value from v$parameter where name='service_names';" >> init.sql && \
     echo 'quit' >> init.sql && \
     sed -i s/wait/echo/g /home/oracle/setup/dockerInit.sh && \
     echo '/u01/app/oracle/product/12.2.0/dbhome_1/bin/sqlplus sys/Oradoc_db1 as SYSDBA @/home/oracle/init.sql' >> /home/oracle/setup/dockerInit.sh
