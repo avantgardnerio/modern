@@ -21,6 +21,7 @@ pipeline {
         stage('Test') {
             steps {
                 sh "netstat -anop"
+                sh "sleep 30"
                 sh 'yarn test'
             }
         }
