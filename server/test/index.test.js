@@ -4,7 +4,7 @@ const request = require('supertest');
 const {app, start, stop} = require('../app');
 const webdriver = require('w3c-webdriver');
 
-xdescribe('the server', () => {
+describe('the server', () => {
     let session;
 
     before(async () => {
