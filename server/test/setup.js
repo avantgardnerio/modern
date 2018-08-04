@@ -11,7 +11,7 @@ process.env.VCAP_SERVICES = JSON.stringify({
         credentials: {
             user: "modern_test",
             password: "password",
-            name : "localhost:1521/ORCLCDB.localdomain"
+            name : "127.0.0.1:1521/ORCLCDB.localdomain"
         }
     }
 });

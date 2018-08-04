@@ -5,7 +5,7 @@ const config = {
     connection: {
         user: vcap ? vcap.oracle.credentials.user : "modern_test",
         password: vcap ? vcap.oracle.credentials.password : "password",
-        connectString : vcap ? vcap.oracle.credentials.name : "localhost:1521/ORCLCDB.localdomain"
+        connectString : vcap ? vcap.oracle.credentials.name : "127.0.0.1:1521/ORCLCDB.localdomain"
     }
 };
 console.log(`connecting to`, config);
