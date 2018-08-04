@@ -1,7 +1,7 @@
 pipeline {
     agent {
         dockerfile {
-            args '-v `pwd`:/ORCL'
+            args '-v $WORKSPACE:/ORCL'
         }
     }
     environment {
