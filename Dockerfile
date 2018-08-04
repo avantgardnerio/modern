@@ -1,4 +1,4 @@
-FROM container-registry.oracle.com/database/enterprise:12.2.0.1
+FROM container-registry.oracle.com/database/enterprise:12.2.0.1-slim
 
 # RUN yum check-update
 
