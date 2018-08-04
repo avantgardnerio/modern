@@ -14,6 +14,7 @@ pipeline {
                 sh "HOME=. yarn install && yarn build"
                 sh "sudo -u oracle /home/oracle/setup/dockerInit.sh"
                 sh "sudo chmod ugo+r -R /home"
+                sh "sudo chmod ugo+x /home/oracle"
                 sh "cd /home/oracle/ && /u01/app/oracle/product/12.2.0/dbhome_1/bin/sqlplus sys/Oradoc_db1 as SYSDBA init.sql"
                 sh "chromedriver --verbose --disable-ipv6 &"
             }
