@@ -2,9 +2,16 @@ process.env.VCAP_SERVICES = JSON.stringify({
     mysql: {
         credentials: {
             host: '127.0.0.1',
-            user: 'root',
-            password: 'password',
+            user: 'sys as SYSDBA',
+            password: 'Oradoc_db1',
             name: 'modern_test'
+        }
+    },
+    oracle: {
+        credentials: {
+            user: "modern_test",
+            password: "password",
+            name : "127.0.0.1:1521/ORCLCDB.localdomain"
         }
     }
 });

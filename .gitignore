@@ -28,3 +28,6 @@ jest_*/
 *.iws
 *.iml
 .idea/
+
+# oracle
+data/

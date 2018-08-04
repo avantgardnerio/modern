@@ -1,23 +1,28 @@
 pipeline {
-    agent { dockerfile true }
+    agent {
+        dockerfile {
+            // args '-v $WORKSPACE:/ORCL'
+        }
+    }
     environment {
-        PATH = "/usr/local/bin:$PATH"
+        PATH = "/u01/app/oracle/product/12.2.0/dbhome_1/bin:/usr/local/bin:/usr/bin:/bin:/snap/bin"
         HOME = "."
         CI = "true"
     }
     stages {
         stage('setup') {
             steps {
-                sh "env"
-                sh "pwd"
-                sh "ls -la"
                 sh "HOME=. yarn install && yarn build"
-                sh "sudo service mysql start && chromedriver --verbose --disable-ipv6 &"
+                sh "sudo -u oracle /home/oracle/setup/dockerInit.sh"
+                sh "chromedriver --verbose --disable-ipv6 &"
+                sh "netstat -anop"
             }
         }
         stage('Test') {
             steps {
-                sh 'npm test'
+                sh "netstat -anop"
+                sh "sleep 30"
+                sh 'yarn test'
             }
         }
     }
