@@ -1,5 +1,9 @@
 pipeline {
-    agent { dockerfile true }
+    agent {
+        dockerfile {
+            args '-v `pwd`:/ORCL'
+        }
+    }
     environment {
         PATH = "/u01/app/oracle/product/12.2.0/dbhome_1/bin:/usr/local/bin:/usr/bin:/bin:/snap/bin"
         HOME = "."
@@ -15,7 +19,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'sleep 5 && yarn test'
+                sh 'yarn test'
             }
         }
     }
