@@ -15,10 +15,12 @@ pipeline {
                 sh "HOME=. yarn install && yarn build"
                 sh "sudo -u oracle /home/oracle/setup/dockerInit.sh"
                 sh "chromedriver --verbose --disable-ipv6 &"
+                sh "netstat -anop"
             }
         }
         stage('Test') {
             steps {
+                sh "netstat -anop"
                 sh 'yarn test'
             }
         }

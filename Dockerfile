@@ -29,7 +29,8 @@ RUN wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.z
 
 # oracle
 RUN usermod -aG wheel oracle && \
-    echo "oracle ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/oracle
+    echo "oracle ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/oracle && \
+    yum install -y nano net-tools
 ENV LD_LIBRARY_PATH=/u01/app/oracle/product/12.2.0/dbhome_1/lib/
 USER oracle
 RUN cd ~ && \
